@@ -1,0 +1,9 @@
+# Cache files #
+*.scssc
+
+
+# Images #
+*.svg
+*.png
+*.ai
+*.jpg

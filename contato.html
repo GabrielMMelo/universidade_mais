@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/compiler/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="node_modules/font-awesome/css/font-awesome.css">
+	<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/compiler/style.css">
+	<title>EMakers</title>
+</head>
+<body>
+
+<!--       ############## NAVBAR ############### 		-->
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg_gradient_roxo">
+
+		<a class="collapse navbar-collapse" id="navbarImg" href="index.html"><img  src="img/completa_branca_preta.png" height="40em"></a>
+
+		<div class="container">
+
+			<a class="navbar-brand h1 mb-0" href="index.html"> Home </a>
+
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSite,#navbarImg">
+
+				<span class="navbar-toggler-icon"></span>	
+
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSite">
+
+				<ul class="navbar-nav mr-auto">
+
+					
+					<li class="nav-item mr-2">
+						<a class="nav-link" href="blog.html">Blog</a>
+					</li>
+					
+					<li class="nav-item mr-2">
+						<a class="nav-link" href="index.html#servicos">Serviços</a>
+					</li>
+
+					<!--<li class="nav-item dropdown mr-2">
+						<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navDrop">Cursos</a>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="#">Eletrônica</a>
+							<a class="dropdown-item" href="#">Desenvolvimento Mobile</a>
+							<a class="dropdown-item" href="#">Linguagens</a>
+							<a class="dropdown-item" href="#">Ferramentas</a>
+						</div>-->
+					</li>
+					<li class="nav-item mr-2">
+						<a class="nav-link" href="equipe.html">Equipe</a>
+					</li>
+					<li class="nav-item mr-2">
+						<a class="nav-link" href="#">Contato</a>
+					</li>
+				</ul>
+
+				<ul class="navbar-nav ml-auto">
+					<form class="form-inline">
+						<input type="search" class="form-control mr-2" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Pesquisar...">
+						<button class="btn btn-light" type="Submit"> 	<img src="img/lupa.svg" height="15rem">
+						</button>
+					</form>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+
+<!--       ############## INICIO CONTEUDO ############### 		-->
+<!-- <img class="img-fluid" src="img/bg_tools.png"> -->
+	<div class="d-block" style="background-image: url('img/bg-tools.jpg'); background-repeat: no-repeat;
+    background-size: 100%;">
+		<div class="container" >
+			
+			<div class="row">
+				
+				<div class="col-12 text-center mt-5 mb-5">
+					
+					<h1 class="display-1 roxo">EMakers</h1>
+					<p>Este é o primeiro website do núcleo de estudos em Sistemas Embarcados, <i>Internet das coisas</i> e Otimização. </p>
+
+				</div>
+
+			</div>
+
+
+
+<!-- #################### CARDS #################### -->
+
+	<div class="bg_roxo text-center box_generic">
+		<br> <br>
+		<div class="mb-5">
+
+
+			<h1 class="display-3 text-light ">  Contato</h1> 
+
+			<p class="lead text-light"> Nos informe uma dúvida, interesse ou sugestão! </p>	
+
+		</div>		
+
+		<div class="container">
+			
+			<div class="row text-left justify-content-center mb-5">
+				
+				<div class="col-sm-12 col-md-10 col-lg-8">
+
+					<form name="formulario" onsubmit="return enviar()" method="post">
+						
+						<div class="form-row">
+							
+							<div class="form-group col-sm-6">
+
+								<label for="inputNome" class="text-light " >Nome*</label>
+								<input type="text" class="form-control" name="formNome" id="inputNome" placeholder="Seu nome" required >
+
+							</div>
+
+							<div class="form-group col-sm-6">
+
+								<label for="inputSobrenome"  class="text-light">Sobrenome</label>
+								<input type="text" class="form-control" id="inputSobrenome" placeholder="Seu sobrenome">
+
+							</div>
+
+							<div class="form-group col-sm-6">
+
+								<label for="inputCidade"  class="text-light">Cidade</label>
+								<input type="text" class="form-control" id="inputCidade" placeholder="Seu cidade">
+
+							</div>
+
+							<div class="form-group col-sm-2">
+
+								<label for="inputEstado"  class="text-light">Estado</label>
+								<select id="inputEstado" class="form-control">
+									
+									<option selected> Selecione...</option>
+									<option>...</option>
+									<option>...</option>
+									<option>...</option>
+									<option>...</option>
+									<option>...</option>
+									<option>...</option>
+								</select>
+							</div>
+
+
+							<div class="form-group col-sm-4">
+
+								<label for="inputCEP"  class="text-light">CEP</label>
+								<input type="text" class="form-control" id="inputCEP" placeholder="CEP">
+
+							</div>
+
+							<div class="form-group col-sm-8">
+
+								<label for="inputEmail"  class="text-light">E-mail*</label>
+								<input type="text" class="form-control" id="inputEmail" placeholder="Seu e-mail" required>
+
+							</div>
+
+							<div class="form-group col-sm-12 mb-1">
+
+								<label for="inputMensagem"  class="text-light">Mensagem</label>
+								<textarea class="form-control" rows="5"  id="inputMensagem" placeholder="Sua mensagem"></textarea>
+								<label class="text-light lead" style=" font-size: 80%;"">* Campos obrigatórios</label>
+							</div>
+
+						</div>
+						
+						<div class="mb-5 text-center">
+							
+							<a href="#" class="btn btn-lg btn-dark btn_custom mt-3" onclick="enviar()" >
+
+							<i class="fa fa-envelope-open-o mx-2" aria-hidden="true" ></i>
+							Enviar
+							</a>
+
+						</div>
+					</form>
+
+
+				</div>
+
+			</div>
+
+
+		</div>
+
+	</div>
+
+<script src="js/form.js"></script>
+<script src="node_modules/jquery/dist/jquery.js"></script>
+<script src="node_modules/popper.js/dist/umd/popper.js"></script>
+<script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+</body>
+</html>
