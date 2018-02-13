@@ -9,6 +9,7 @@
 				break;
 			}
 		}
+
 		if($flag){
 			$name = filter_input(INPUT_GET, "name".$i);
 			if ($name == ""){
