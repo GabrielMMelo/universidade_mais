@@ -26,7 +26,7 @@
 			if ($mysqllink) {
 			$query = mysqli_query($mysqllink, "INSERT INTO comments (postId, name, comment) VALUES ('$postId', '$name','$comment');");
 			if($query) {
-				echo "";
+				location('index.php');
 			}
 			else {
 				die("ERRO: ". mysqli_error($mysqllink));

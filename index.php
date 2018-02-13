@@ -5,7 +5,7 @@
 		c:\Ruby24-x64\bin\setrbvars.cmd
 		sass --watch ./bootstrap/scss:./bootstrap/compiler/ ./font-awesome/scss:./font-awesome/css
 	-->
-	<meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/compiler/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="node_modules/font-awesome/css/font-awesome.css">
 	<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/compiler/style.css">
@@ -14,6 +14,7 @@
 	<title>UniMais</title>
 	
 	<?php
+		header('Content-Type: text/html; charset=utf-8');
 		include "comment.php";
 
 		$parametro = filter_input(INPUT_GET, "search");
@@ -23,6 +24,10 @@
 	  		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	  	}
 
+	  	mysqli_query($mysqllink, "SET NAMES 'utf8'");
+		mysqli_query($mysqllink, 'SET character_set_connection=utf8');
+		mysqli_query($mysqllink, 'SET character_set_client=utf8');
+		mysqli_query($mysqllink, 'SET character_set_results=utf8');
 		if ($parametro){
 			$dados = mysqli_query($mysqllink,"SELECT * FROM post where name like '%$parametro%' order by name desc");
 			/*$imgs = mysqli_query($mysqllink,"SELECT src
@@ -186,57 +191,62 @@
 
 
 <!-- ########### SUB NAVBAR ########## -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white ">
+<nav class="navbar navbar-expand-lg navbar-light bg-light ">
 
-		<div class="container">
-			<div class="row text-center my-5 ml-5 justify-content-center">			
+		<div class="containr">
+			<div class="row text-center mt-2  justify-content-center">			
 				
-			<ul class="navbar-nav mr-auto">
-				<div class="col-3">
-				<li class="nav-item ml-lg-5 mr-lg-3 mr-sm-0 justify-content-sm-center text-dark">
-					<a class="animate one nav-link  dropdown-toggle" href="#" data-toggle="dropdown" id="navLP"><span class="repeat">L</span><span class="repeat">I</span><span class="repeat">N</span><span class="repeat">G</span><span class="repeat">U</span><span class="repeat">A</span><span class="repeat">G</span><span class="repeat">E</span ><span class="repeat">N</span><span class="repeat">S</span>
-          
-        </a>
-					<div class="dropdown-menu rounded">
-						<a class="dropdown-item" href="#">Python</a>
-						<a class="dropdown-item" href="#">C++</a>
-						<a class="dropdown-item" href="#">VBA</a>
-						<a class="dropdown-item" href="#">Javascript</a>
-					</div>
+			<ul class="navbar-nav mr-auto ">
+				<div class="col-4">
+				<li class="nav-item ml-lg-0 mr-lg-5 mr-sm-0 justify-content-sm-center">
+					<a class="animate one nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navLP"><span class="repeat text-dark display-4">L</span><span class="repeat text-dark">I</span><span class="repeat text-dark">N</span><span class="repeat text-dark">G</span><span class="repeat text-dark">U</span><span class="repeat text-dark">A</span><span class="repeat text-dark">G</span><span class="repeat text-dark">E</span ><span class="repeat text-dark">N</span><span class="repeat text-dark">S</span>   <span class="repeat text-dark">D</span><span class="repeat text-dark">E</span><br><span class="repeat text-dark display-4">&nbsp;P</span><span class="repeat text-dark">R</span><span class="repeat text-dark">O</span><span class="repeat text-dark">G</span><span class="repeat text-dark">R</span><span class="repeat text-dark">A</span ><span class="repeat text-dark">M</span><span class="repeat text-dark">A</span><span class="repeat text-dark">Ç</span><span class="repeat text-dark">Ã</span><span class="repeat text-dark">O</span>
+
+        			</a>
+
+					<ul class="dropdown-menu rounded ml-5" id="primary-menu">
+						<li><a class="dropdown-item" href="#">Python</a></li>
+						<li><a class="dropdown-item" href="#">C++</a></li>
+						<li><a class="dropdown-item" href="#">VBA</a></li>
+						<li><a class="dropdown-item" href="#">Javascript</a></li>
+					</ul>
 				</li>
 
 				</div>
 
-				<div class="col-3">
-				<li class="nav-item dropdown mr-3">
-					<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navMCU">MICROCONTROLADORES</a>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="#">Arduino</a>
-						<a class="dropdown-item" href="#">ESP8266</a>
-						<a class="dropdown-item" href="#">PIC</a>
-					</div>
+				<div class="col-4">
+				<li class="nav-item dropdown  mr-5">
+					<a class="animate one nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navLP"><br><span class="repeat text-dark display-4">M</span><span class="repeat text-dark">I</span><span class="repeat text-dark">C</span><span class="repeat text-dark">R</span><span class="repeat text-dark">O</span><span class="repeat text-dark">C</span><span class="repeat text-dark">O</span><span class="repeat text-dark">N</span ><span class="repeat text-dark">T</span><span class="repeat text-dark">R</span><span class="repeat text-dark">O</span><span class="repeat text-dark">L</span><span class="repeat text-dark">A</span><span class="repeat text-dark">D</span><span class="repeat text-dark">O</span><span class="repeat text-dark">R</span><span class="repeat text-dark">E</span><span class="repeat text-dark">S</span>
+						<br>
+        			</a>
+					<ul class="dropdown-menu mt-lg-5">
+						<li><a class="dropdown-item" href="#">Arduino</a></li>
+						<li><a class="dropdown-item" href="#">ESP8266</a></li>
+						<li><a class="dropdown-item" href="#">PIC</a></li>
+					</ul>
 				</li>
 
 				</div>	
-				<div class="col-3">
-				<li class="nav-item mr-3">
-					<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navIC">INTELIGÊNCIA COMPUTACIONAL</a>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="#">Redes Neurais Artificiais</a>
-						<a class="dropdown-item" href="#">Fuzzy</a>
-						<a class="dropdown-item" href="#">Algoritmos Genéticos</a>
-					</div>
+				<div class="col-4">
+				<li class="nav-item mr-5 ml-lg-5 mb-sm-5 mb-lg-0 mb-md-0">
+					<a class="animate one nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navLP"><span class="repeat text-dark display-4">I</span><span class="repeat text-dark">N</span><span class="repeat text-dark">T</span><span class="repeat text-dark">E</span><span class="repeat text-dark">L</span><span class="repeat text-dark">I</span><span class="repeat text-dark">G</span><span class="repeat text-dark">Ê</span ><span class="repeat text-dark">N</span><span class="repeat text-dark">C</span><span class="repeat text-dark">I</span><span class="repeat text-dark">A</span> <br> <span class="repeat text-dark display-4">C</span><span class="repeat text-dark">O</span><span class="repeat text-dark">M</span><span class="repeat text-dark">P</span><span class="repeat text-dark">U</span><span class="repeat text-dark">T</span><span class="repeat text-dark">A</span><span class="repeat text-dark">C</span><span class="repeat text-dark">I</span><span class="repeat text-dark">O</span><span class="repeat text-dark">N</span><span class="repeat text-dark">A</span><span class="repeat text-dark">L</span> <br>
+        			</a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="#">Redes Neurais Artificiais</a></li>
+						<li><a class="dropdown-item" href="#">Fuzzy</a></li>
+						<li><a class="dropdown-item" href="#">Algoritmos Genéticos</a></li>
+					</ul>
 				</li>
 				</div>
-				<div class="col-3">
-				<li class="nav-item mr-3">
-					<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navTOOLS">FERRAMENTAS</a>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="#">Eletrônica</a>
-						<a class="dropdown-item" href="#">Desenvolvimento Mobile</a>
-						<a class="dropdown-item" href="#">Linguagens</a>
-						<a class="dropdown-item" href="#">Ferramentas</a>
-					</div>
+				<div class="col-4">
+				<li class="nav-item mr-5 ml-lg-5 mt-sm-4">
+					<a class="animate one nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navLP"><span class="repeat text-dark display-4">F</span><span class="repeat text-dark">E</span><span class="repeat text-dark">R</span><span class="repeat text-dark">R</span><span class="repeat text-dark">A</span><span class="repeat text-dark">M</span><span class="repeat text-dark">E</span><span class="repeat text-dark">N</span ><span class="repeat text-dark">T</span><span class="repeat text-dark">A</span><span class="repeat text-dark">S</span><br>
+        			</a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="#">Eletrônica</a></li>
+						<li><a class="dropdown-item" href="#">Desenvolvimento Mobile</a></li>
+						<li><a class="dropdown-item" href="#">Linguagens</a></li>
+						<li><a class="dropdown-item" href="#">Ferramentas</a></li>
+					</ul>
 				</li>
 
 
@@ -397,7 +407,6 @@
 				mysqli_free_result($dados);}
 
 				mysqli_close($mysqllink);
-				echo "_FECHADO_";
 			?>
 
 		    </div>
@@ -420,11 +429,6 @@
 			</div>
 		</div>
 	
-        <a class="animate one">
-            <span class="repeat">c</span><span class="repeat">s</span><span class="repeat">s</span><span class="repeat">3</span> &nbsp;
-            <span class="repeat">a</span><span class="repeat">n</span><span class="repeat">i</span><span class="repeat">m</span ><span class="repeat">a</span><span class="repeat">t</span><span class="repeat">i</span><span class="repeat">o</span><span class="repeat">n</span><span class="repeat">s</span>
-          
-        </a>
 
 		<div class="row justify-content-center">
 			<div class="col-sm-12 col-md-6 col-lg-6 text-light ">
