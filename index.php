@@ -281,7 +281,7 @@
 
 		</div>
 
-		<div class="col-9 mt-5 ">
+		<div class="col-9 mt-5">
 			<?php
 			$count = 0;
 			if($total) {
@@ -309,19 +309,110 @@
           <hr>
 
           <!-- Preview Image -->
-          <img class="img-fluid rounded" src="img/<?php echo $linha['img']?>" alt="">
-
+          <div class="text-center">
+          	<img class="img-fluid rounded" src="img/<?php echo $linha['img']?>" alt="">
+		  </div>          
           <hr>
 
           <!-- Post Content -->
           <p class="lead"><?php echo $linha['content']?></p>
 
-          <blockquote class="blockquote">
+          <!--<blockquote class="blockquote">
             <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
             <footer class="blockquote-footer">Someone famous in
               <cite title="Source Title">Source Title</cite>
             </footer>
-          </blockquote>
+          </blockquote>-->
+
+          	<?php
+          	$aut = $linha['author'];
+			$author = mysqli_query($mysqllink,"SELECT * FROM authors where name = '$aut';");
+
+			$linhaA = mysqli_fetch_assoc($author);
+			//$linhaImages = mysqli_fetch_assoc($imgs);
+			$totalA = mysqli_num_rows($author);
+			if ($totalA){
+				do{
+
+			?>
+
+          <div class="bg-light">
+				
+				<div class="row ">
+
+
+					<div class="col-4 my-4 mx-5 text-center">
+
+						<h2 class="display-4"><?php echo $linhaA['name']?></h2>
+
+						<img class="img-fluid heavy_rounded mt-5" src="img/<?php echo $linhaA['img']?>" alt="<?php echo $linhaA['name']?>">
+						
+
+					</div>
+
+					<div class="col-6 mt-5 mb-3 text-center">
+
+						<p class="lead">
+							
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+						</p>
+						
+						<div class="row mt-5">
+
+							<div class="col-4 col-sm-4">
+								
+								<a class="text-dark" href="http://facebook.com/EMakersUFLA">
+									
+									<i class="fa fa-facebook-square fa-5x mr-3 mr-sm-3 mr-md-3 mr-lg-3" aria-hidden="true"></i>
+								
+								</a>
+
+							</div>
+
+
+							<div class=" col-4 col-sm-4">
+								
+								<a class="text-dark" href="http://facebook.com/EMakersUFLA">
+								
+									<i class="fa fa-instagram fa-5x mr-4" aria-hidden="true"></i>
+								
+								</a>
+
+							</div>
+
+							<div class="col-4 col-sm-4">
+								
+								<a class="text-dark" href="http://facebook.com/EMakersUFLA">
+
+									<i class="fa fa-youtube-square fa-5x mr-5 mb-lg-5 mb-md-3 mb-sm-5" aria-hidden="true"></i>
+
+								</a>
+
+							</div>
+
+						</div>
+
+
+					</div>
+						
+
+
+				</div>          	
+
+
+          </div>
+
+          	<?php 
+          		} while($linhaC = mysqli_fetch_assoc($author));
+				mysqli_free_result($author);
+			}
+			?>
 
           <hr>
 
