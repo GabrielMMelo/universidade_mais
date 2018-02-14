@@ -1,42 +1,46 @@
 <?php
-	function new_comment($postId, $mysqllink, $array){
-		$comment = "";
-		$flag = FALSE;
-		for ($i = 1; $i <count($array)+1; $i++) {
-			$comment = filter_input(INPUT_GET, "comment".$i);
-			if ($comment != "") {
-				$flag = TRUE;
-				break;
+	
+	$mysqllink = mysqli_connect("localhost", "root", "", "universidademais");
+
+	$flag = FALSE;
+	if (isset($_POST['comment'])) {
+		$comment = $_POST['comment'];
+	    if ($comment != "") {
+	    	$flag = TRUE;
+	    	if (isset($_POST['postId'])) {
+				$postId = $_POST['postId'];
 			}
+			if (isset($_POST['name'])) {
+				$name = $_POST['name'];
+			}
+	    }
+	}
+	
+
+	if($flag){
+		
+		
+		if ($name == ""){
+			$name = "Anônimo";
 		}
-
-		if($flag){
-			$name = filter_input(INPUT_GET, "name".$i);
-			if ($name == ""){
-				$name = "Anônimo";
-			}
-			$comment = filter_input(INPUT_GET, "comment".$i);
-			//$index = substr("name2", strlen("name2") - 1, 1);
-			
-			$postId = $array[$i-1];
-			echo $postId;
-
-			//$mysqllink = mysqli_connect("localhost", "root", "", "universidademais");
-
-			if ($mysqllink) {
-			$query = mysqli_query($mysqllink, "INSERT INTO comments (postId, name, comment) VALUES ('$postId', '$name','$comment');");
+		
+		if ($mysqllink) {
+		$query = mysqli_query($mysqllink, "INSERT INTO comments (postId, name, comment) VALUES ('$postId', '$name','$comment');");
 			if($query) {
-				location('index.php');
+				header('Location:index.php');
 			}
 			else {
 				die("ERRO: ". mysqli_error($mysqllink));
 			}	
-			}
-
-			else{
-				die("ERRO: ". mysqli_error($link));
-			}
 		}
+
+		else{
+			die("ERRO: ". mysqli_error($mysqllink));
+		}
+	}
+
+	else{
+		header('Location:index.php');
 	}
 ?>
 

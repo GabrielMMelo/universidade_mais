@@ -15,7 +15,7 @@
 	
 	<?php
 		header('Content-Type: text/html; charset=utf-8');
-		include "comment.php";
+		//include "comment.php";
 
 		$parametro = filter_input(INPUT_GET, "search");
 		$mysqllink = mysqli_connect("localhost", "root", "", "universidademais");
@@ -281,7 +281,7 @@
 
 		</div>
 
-		<div class="col-9 ">
+		<div class="col-9 mt-5 ">
 			<?php
 			$count = 0;
 			if($total) {
@@ -302,12 +302,14 @@
           <hr>
 
           <!-- Date/Time -->
-          <p><i>Postado em <?php echo $linha['post_date']; $postId = $linha['id']; $array[] = $postId;?></i></p>
+          <p><i>Postado em <?php echo $linha['post_date'];
+          					$postId = $linha['id'];
+          				   ?></i></p>
 
           <hr>
 
           <!-- Preview Image -->
-          <img class="img-fluid rounded" src="img/post_example.jpg" alt="">
+          <img class="img-fluid rounded" src="img/<?php echo $linha['img']?>" alt="">
 
           <hr>
 
@@ -331,16 +333,17 @@
 	          <div class="card my-4">
 	            <h5 class="card-header bg_roxo text-light">Deixe um comentário:</h5>
 	            <div class="card-body">
-	            	<form action="<?php echo $_SERVER['PHP_SELF'];?>">
+	            	<form action="comment.php" method="post">
 	                	<div class="form-group">
+	                		<input type="hidden" name="postId" value="<?php echo $postId?>">
 	                		<label>Nome:</label>
 	                		<br>
-	                		<input type="text" name="<?php echo $n ?>">
+	                		<input type="text" name="name">
 	                		<br>
 	                		<br>
 	                		<label>Comentário:</label>
 	                		<br>
-	                  		<textarea class="form-control" name="<?php echo $c ?>" rows="3"></textarea>
+	                  		<textarea class="form-control" name="comment" rows="3"></textarea>
 	                	</div>
 	                	<button type="submit" class="btn btn-dark box_generic">Submit</button>
 	        	    </form>
@@ -401,9 +404,9 @@
 
 		<?php
 				} while($linhaC = mysqli_fetch_assoc($comments));
+				mysqli_free_result($comments);
 			}
 		} while($linha = mysqli_fetch_assoc($dados));
-				new_comment($postId, $mysqllink, $array);
 				mysqli_free_result($dados);}
 
 				mysqli_close($mysqllink);
