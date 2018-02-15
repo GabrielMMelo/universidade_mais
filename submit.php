@@ -62,14 +62,14 @@
 		$query = mysqli_query($mysqllink, "INSERT INTO post (name, content, author, img) VALUES ('$name','$content','$author', '$img');");
 
 		if($query){
-			header('location:new_post.html');
+			header('location:new.html');
 		}
 
 	}
 
 	else {
 
-		echo "DEU MERDA PRA CARALHO";
+		echo '<script>alert("DEU MERDA PRA CARALHO")</script>';
 
 	}
 ?>

@@ -2,6 +2,11 @@
 	
 	$mysqllink = mysqli_connect("localhost", "root", "", "universidademais");
 
+	mysqli_query($mysqllink, "SET NAMES 'utf8'");
+	mysqli_query($mysqllink, 'SET character_set_connection=utf8');
+	mysqli_query($mysqllink, 'SET character_set_client=utf8');
+	mysqli_query($mysqllink, 'SET character_set_results=utf8');
+
 	$flag = FALSE;
 	if (isset($_POST['comment'])) {
 		$comment = $_POST['comment'];

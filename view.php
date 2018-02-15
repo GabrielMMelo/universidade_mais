@@ -12,12 +12,76 @@
 </head>
 <body>
 
+<table cellpadding="5" cellspacing="5" width="40%" border="2 pt">
 <tr>
 	
-	<td></td>
-	<td></td>
-	<td></td>
+	<td><b>Name</b></td>
+	<td><b>Author</b></td>
+	<td><b>Content</b></td>
+	<td><b>Main Image</b></td>
+	<td><b>Date</b></td>
+	<td><b>EDIT</b></td>
+	<td><b>DELETE</b></td>
+
 </tr>
+
+<?php 
+	
+	$mysqllink = mysqli_connect("localhost", "root", "", "universidademais");
+
+	if (mysqli_connect_errno()) {
+  		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  	}
+
+  	$post = mysqli_query($mysqllink,"SELECT * FROM post order by post_date desc");
+  	$linha = mysqli_fetch_assoc($post);
+	$total = mysqli_num_rows($post);
+	if ($total){
+		do{
+?>
+
+<tr bgcolor="#F6F6F6">
+	
+	<td><b><?php echo $linha['name'] ?></b></td>
+	<td><b><?php echo $linha['author'] ?></b></td>
+	<td><b><?php echo $linha['content'] ?></b></td>
+	<td><b><?php echo $linha['img'] ?></b></td>
+	<td><b><?php echo $linha['post_date'] ?></b></td>
+	<td class="text-center"><b><a href="edit.php?id=<?php echo $linha['id'];?>"><span class="fa fa-edit text-success"></span></a></b></td>
+	<td class="text-center"><b><a href="?delete=true&id=<?php echo $linha['id'];?>"><span class="fa fa-trash text-danger"></span></a></b></td>
+	
+</tr>
+
+	<?php 
+
+		} while($linha = mysqli_fetch_assoc($post));
+
+		mysqli_free_result($post);
+	}
+	
+
+	?>
+</table>
+
+<?php 
+
+	if (isset($_GET['delete'])) {
+
+		if ($_GET['delete'] == "true") {
+
+			$id = $_GET['id'];
+			$query = mysqli_query($mysqllink, "DELETE FROM post WHERE id = '$id';");
+			mysqli_close($mysqllink);
+			if ($query){
+				echo '<script> location.href="view.php" </script>';
+			}
+		}
+
+	
+	}	
+
+?>
+
 
 </body>
 </html>

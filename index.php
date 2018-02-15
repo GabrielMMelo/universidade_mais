@@ -65,16 +65,18 @@
 				<ul class="navbar-nav mr-auto">
 
 					<li class="nav-item mr-5">
-						<a class="nav-link" href="equipe.html">EQUIPE</a>
+						<a class="nav-link" href="#">CURSO</a>
 					</li>
 
 					<li class="nav-item mr-5">
-						<a class="nav-link" href="equipe.html">SEJA UM CONTRIBUIDOR</a>
+						<a class="nav-link" href="#">SOBRE NÓS</a>
 					</li>
 
+
 					<li class="nav-item mr-5">
-						<a class="nav-link" href="contato.html">CONTATO</a>
+						<a class="nav-link" href="#">SEJA UM CONTRIBUIDOR</a>
 					</li>
+
 				</ul>
 				<ul class="navbar-nav">
 					<li class="nav-item">
@@ -172,11 +174,11 @@
 <!-- ########### SUB NAVBAR ########## -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light ">
 
-		<div class="containr">
+		<div class="#">
 			<div class="row text-center mt-2  justify-content-center">			
 				
 			<ul class="navbar-nav mr-auto ">
-				<div class="col-4">
+				<div class="col-4 ">
 				<li class="nav-item ml-lg-0 mr-lg-5 mr-sm-0 justify-content-sm-center">
 					<a class="animate one nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navLP"><span class="repeat text-dark display-4">L</span><span class="repeat text-dark">I</span><span class="repeat text-dark">N</span><span class="repeat text-dark">G</span><span class="repeat text-dark">U</span><span class="repeat text-dark">A</span><span class="repeat text-dark">G</span><span class="repeat text-dark">E</span ><span class="repeat text-dark">N</span><span class="repeat text-dark">S</span>   <span class="repeat text-dark">D</span><span class="repeat text-dark">E</span><br><span class="repeat text-dark display-4">&nbsp;P</span><span class="repeat text-dark">R</span><span class="repeat text-dark">O</span><span class="repeat text-dark">G</span><span class="repeat text-dark">R</span><span class="repeat text-dark">A</span ><span class="repeat text-dark">M</span><span class="repeat text-dark">A</span><span class="repeat text-dark">Ç</span><span class="repeat text-dark">Ã</span><span class="repeat text-dark">O</span>
 
@@ -401,7 +403,7 @@
           
 	          <!-- Comments Form -->
 	          <div class="card my-4">
-	            <h5 class="card-header bg_roxo text-light">Deixe um comentário:</h5>
+	            <h5 class="card-header bg-dark text-light">Deixe um comentário:</h5>
 	            <div class="card-body">
 	            	<form action="comment.php" method="post">
 	                	<div class="form-group">
@@ -415,7 +417,9 @@
 	                		<br>
 	                  		<textarea class="form-control" name="comment" rows="3"></textarea>
 	                	</div>
-	                	<button type="submit" class="btn btn-dark box_generic">Submit</button>
+	                	<div class="text-center">
+	                		<button type="submit" class="btn btn-lg btn-success box_generic">Enviar</button>
+	                	</div>
 	        	    </form>
 	    	    </div>
 	        </div>
