@@ -139,3 +139,4 @@
   transform: translateY(0%);
   transition-delay: 0s, 0s, 0.3s; /* this removes the transition delay so the menu will be visible while the other styles transition */
 }
+

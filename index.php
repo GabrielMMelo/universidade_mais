@@ -10,6 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="node_modules/font-awesome/css/font-awesome.css">
 	<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/compiler/style.css">
 	<link rel="stylesheet" type="text/css" href="teste.css">
+	<link rel="stylesheet" type="text/css" href="tinymce/prism.css">
 	<link rel="shortcut icon" href="img/icon.ico">
 	<title>UniMais</title>
 	
@@ -30,26 +31,14 @@
 		mysqli_query($mysqllink, 'SET character_set_results=utf8');
 		if ($parametro){
 			$dados = mysqli_query($mysqllink,"SELECT * FROM post where name like '%$parametro%' order by name desc");
-			/*$imgs = mysqli_query($mysqllink,"SELECT src
-											FROM images AS I, post AS P
-											WHERE I.postId = (SELECT P.id
-					  										  FROM post AS P
-					  										  WHERE p.name LIKE '%parametro%' order by name desc);");*/
 		}
 
 		else{
 			$dados = mysqli_query($mysqllink,"SELECT * FROM post order by post_date desc");
-			/*$imgs = mysqli_query($mysqllink,"SELECT src
-											FROM images AS I, post AS P
-											WHERE I.postId = (SELECT P.id
-					  						FROM post AS P
-					  						WHERE p.name LIKE '%' order by name desc);");*/
 		}
 
 		$linha = mysqli_fetch_assoc($dados);
-		//$linhaImages = mysqli_fetch_assoc($imgs);
 		$total = mysqli_num_rows($dados);
-		//$totalImages = mysqli_num_rows($imgs);
 	?>
 
 </head>
@@ -74,16 +63,6 @@
 			<div class="collapse navbar-collapse" id="navbarSite">
 
 				<ul class="navbar-nav mr-auto">
-
-					<!--<li class="nav-item dropdown mr-2">
-						<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="navDrop">Cursos</a>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="#">Eletrônica</a>
-							<a class="dropdown-item" href="#">Desenvolvimento Mobile</a>
-							<a class="dropdown-item" href="#">Linguagens</a>
-							<a class="dropdown-item" href="#">Ferramentas</a>
-						</div>
-					</li> -->
 
 					<li class="nav-item mr-5">
 						<a class="nav-link" href="equipe.html">EQUIPE</a>
@@ -427,12 +406,12 @@
 	            	<form action="comment.php" method="post">
 	                	<div class="form-group">
 	                		<input type="hidden" name="postId" value="<?php echo $postId?>">
-	                		<label>Nome:</label>
+	                		<label class="lead">Nome:</label>
 	                		<br>
 	                		<input type="text" name="name">
 	                		<br>
 	                		<br>
-	                		<label>Comentário:</label>
+	                		<label class="lead">Comentário:</label>
 	                		<br>
 	                  		<textarea class="form-control" name="comment" rows="3"></textarea>
 	                	</div>
@@ -841,5 +820,6 @@
 <script src="node_modules/popper.js/dist/umd/popper.js"></script>
 <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
 <script src="function.js"></script>
+<script src="tinymce/prism.js"></script>
 </body>
 </html>
