@@ -2,17 +2,32 @@
 <head>
 	<?php
 
-	$mysqllink = mysqli_connect("localhost", "root", "", "universidademais");
+		if (isset($_POST['action'])) {			
+			if ($_POST['action'] == 'logout') {
+				session_start();
+				unset($_SESSION['name'], $_SESSION['pass']);
+			}
+		}
 
-	if (mysqli_connect_errno()) {
-  		echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  	}
+		session_start(['cookie_lifetime' => 120,]);
+		if (!isset($_SESSION['name']) OR !isset($_SESSION['pass'])) {
+		    unset($_SESSION['name'], $_SESSION['pass']);
+			header("Location:login.php");
 
-  	if (isset($_GET['id'])) {
-  		$id = (int)$_GET['id'];
-  		$post = mysqli_query($mysqllink, "SELECT * FROM post WHERE id = '$id';");
-  		$linha = mysqli_fetch_array($post);
-  	}
+		}
+
+
+		$mysqllink = mysqli_connect("localhost", "root", "", "universidademais");
+
+		if (mysqli_connect_errno()) {
+	  		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	  	}
+
+	  	if (isset($_GET['id'])) {
+	  		$id = (int)$_GET['id'];
+	  		$post = mysqli_query($mysqllink, "SELECT * FROM post WHERE id = '$id';");
+	  		$linha = mysqli_fetch_array($post);
+	  	}
   	?>
 	<title><?php echo $linha['name']?></title>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -24,6 +39,21 @@
 	<link rel="shortcut icon" href="img/icon.ico">
 </head>
 <body>
+	<div class="container justify-content-center">
+		<div class="row text-right mt-3">
+			<div class="col-8 text-left">
+				<span class="lead">Usuário:</span><span class="lead"><b><i><?php echo $_SESSION['name']?></i></b></span>
+			</div>
+			<div class="col-4">
+				<form action="" method="post">
+						<input type="hidden" name="action" value="logout">
+						<input class="btn btn-danger" type="submit" name="submit" value="Logout">
+				</form>
+			</div>
+		</div>
+	</div>
+
+
 	<div class="container" id="conteudo">
 
 		<h1 class="display-2 text-center">EDIT POST</h1>

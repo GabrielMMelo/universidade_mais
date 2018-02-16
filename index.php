@@ -16,6 +16,7 @@
 	
 	<?php
 		header('Content-Type: text/html; charset=utf-8');
+
 		//include "comment.php";
 
 		$parametro = filter_input(INPUT_GET, "search");

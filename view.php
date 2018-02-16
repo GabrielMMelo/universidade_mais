@@ -1,5 +1,22 @@
 <html>
 <head>
+	<?php
+		if (isset($_POST['action'])) {			
+			if ($_POST['action'] == 'logout') {
+				session_start();
+				unset($_SESSION['name'], $_SESSION['pass']);
+			}
+		}
+
+		session_start(['cookie_lifetime' => 120,]);
+		if (!isset($_SESSION['name']) OR !isset($_SESSION['pass'])) {
+		    unset($_SESSION['name'], $_SESSION['pass']);
+			header("Location:login.php");
+
+		}
+
+	?>
+
 	<title>VIEW POSTS</title>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/compiler/bootstrap.css">
@@ -11,6 +28,19 @@
 
 </head>
 <body>
+	<div class="container justify-content-center">
+		<div class="row text-right mt-3">
+			<div class="col-8 text-left">
+				<span class="lead">Usuário:</span><span class="lead"><b><i><?php echo $_SESSION['name']?></i></b></span>
+			</div>
+			<div class="col-4">
+				<form action="" method="post">
+						<input type="hidden" name="action" value="logout">
+						<input class="btn btn-danger" type="submit" name="submit" value="Logout">
+				</form>
+			</div>
+		</div>
+	</div>
 
 <table cellpadding="5" cellspacing="5" width="40%" border="2 pt">
 <tr>
