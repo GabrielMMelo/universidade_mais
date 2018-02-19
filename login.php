@@ -29,34 +29,38 @@
 
 	<div class="container">
 
-		<div class="card mt-5 card_md" style="width: 30rem;" >
-			
-			<div class="card-title"> 
+		
+		<div class="row justify-content-center">
 
-				<h1 class="display-2 text-center">LOGIN</h1>
-				<br>
+				<div class="card mt-4 " style="width: 18rem;" >
+					<img src="img/icon.png" class="card-img-top">
+					<div class="card-title"> 
 
-			</div>
+						<h1 class="mt-3 display-3 text-center">LOGIN</h1>
+						<br>
 
-			<div class="card-block ml-5">
-				<form action="" method="post">
-					<label class="lead">Author</label>
-					<br>
-					<input type="text" name="name">
-					<br>
-					<br>
-					<label class="lead">Password</label>
-					<br>
-					<input type="password" name="pass">
-					<br>
-					<br>
-					<div class=" ml-5">
-					<input type="hidden" name="action" value="login">
-					<input type="submit" name="submit" value="Submit">
 					</div>
-				</form>
-			</div>
 
+					<div class="card-block ml-5">
+						<form action="" method="post">
+							<label class="lead">Author</label>
+							<br>
+							<input type="text" name="name">
+							<br>
+							<br>
+							<label class="lead">Password</label>
+							<br>
+							<input type="password" name="pass">
+							<br>
+							<br>
+							<div class=" ml-5">
+							<input type="hidden" name="action" value="login">
+							<input class=" mb-4 btn btn-lg btn-success" type="submit" name="submit" value="Submit">
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 

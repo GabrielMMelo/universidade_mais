@@ -52,12 +52,9 @@
 				<input type="text" name="name">
 				<br>
 				<br>
-				<!-- IMPLEMENTAR TELA DE LOGIN COM CADASTROS PARA JA FAZER REFERENCIA A UM AUTHOR -->
-				<label class="lead">Author:</label>
-				<br>
-				<input type="text" name="author">
-				<br>
-				<br>
+			
+				<input type="hidden" name="author" value="<?php echo $_SESSION['name']?>">
+
 				<label class="lead">Main image path:</label>
 				<br>
 				<input type="text" name="img">

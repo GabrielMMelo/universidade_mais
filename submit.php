@@ -62,7 +62,7 @@
 		$query = mysqli_query($mysqllink, "INSERT INTO post (name, content, author, img) VALUES ('$name','$content','$author', '$img');");
 
 		if($query){
-			header('location:new.html');
+			header('location:new.php');
 		}
 
 	}

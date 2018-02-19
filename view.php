@@ -100,13 +100,15 @@
 		if ($_GET['delete'] == "true") {
 
 			$id = $_GET['id'];
-			$query = mysqli_query($mysqllink, "DELETE FROM post WHERE id = '$id';");
+			$file_name = 'D:/wamp64/tmp/'.$id.'.sql';
+			echo $file_name;
+			$query1 = mysqli_query($mysqllink,"SELECT * INTO OUTFILE '$file_name' FROM post;");
+			$query2 = mysqli_query($mysqllink, "DELETE FROM post WHERE id = '$id';");
 			mysqli_close($mysqllink);
-			if ($query){
+			if ($query2){
 				echo '<script> location.href="view.php" </script>';
 			}
 		}
-
 	
 	}	
 

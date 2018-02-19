@@ -78,6 +78,10 @@
 						<a class="nav-link" href="#">SEJA UM CONTRIBUIDOR</a>
 					</li>
 
+					<li class="nav-item mr-5">
+						<a class="nav-link" target="_blank" href="login.php">LOGIN</a>
+					</li>
+
 				</ul>
 				<ul class="navbar-nav">
 					<li class="nav-item">
@@ -336,12 +340,7 @@
 
 						<p class="lead">
 							
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							<?php echo $linhaA['bio']; ?>
 
 						</p>
 						
@@ -349,9 +348,9 @@
 
 							<div class="col-4 col-sm-4">
 								
-								<a class="text-dark" href="http://facebook.com/EMakersUFLA">
+								<a class="text-dark" href="<?php echo $linhaA['linkedin']?>">
 									
-									<i class="fa fa-facebook-square fa-5x mr-3 mr-sm-3 mr-md-3 mr-lg-3" aria-hidden="true"></i>
+									<i class="fa fa-linkedin-square fa-5x mr-3 mr-sm-3 mr-md-3 mr-lg-3" aria-hidden="true"></i>
 								
 								</a>
 
@@ -360,7 +359,7 @@
 
 							<div class=" col-4 col-sm-4">
 								
-								<a class="text-dark" href="http://facebook.com/EMakersUFLA">
+								<a class="text-dark" href="<?php echo $linhaA['instagram']?>">
 								
 									<i class="fa fa-instagram fa-5x mr-4" aria-hidden="true"></i>
 								
@@ -370,9 +369,9 @@
 
 							<div class="col-4 col-sm-4">
 								
-								<a class="text-dark" href="http://facebook.com/EMakersUFLA">
+								<a class="text-dark" href="<?php echo $linhaA['twitter']?>">
 
-									<i class="fa fa-youtube-square fa-5x mr-5 mb-lg-5 mb-md-3 mb-sm-5" aria-hidden="true"></i>
+									<i class="fa fa-twitter-square fa-5x mr-5 mb-lg-5 mb-md-3 mb-sm-5" aria-hidden="true"></i>
 
 								</a>
 
@@ -398,7 +397,8 @@
 
           <hr>
 
-      	
+
+<!--       ############## COMMENTS ############### 		-->
         <div class="col-12">
           	
           
@@ -408,6 +408,7 @@
 	            <div class="card-body">
 	            	<form action="comment.php" method="post">
 	                	<div class="form-group">
+	                		<input type="hidden" name="action" value="comment">
 	                		<input type="hidden" name="postId" value="<?php echo $postId?>">
 	                		<label class="lead">Nome:</label>
 	                		<br>
@@ -468,16 +469,87 @@
 		            }
 
 		            ?>
-		            <div class="media-body">
+		            <div class="media-body" id="<?php echo $linhaC['id'];?>">
 		              <h5 class="mt-0"><?php echo $linhaC['name'] ?></h5>
 		              <p>
-		              	<?php echo $linhaC['comment']; ?>
+		              	<?php echo $linhaC['comment'];?>
 		              </p>
+
+		              <p class="text-right lead text-muted"><?php echo $linhaC['date']?></p>
+
+		              
+		            <?php
+
+		            	$commentId = $linhaC['id'];
+
+			            $subcomments = mysqli_query($mysqllink,"SELECT * FROM subcomments where commentId = '$commentId' order by date desc");
+
+	  					$linhaS = mysqli_fetch_assoc($subcomments);
+						//$linhaImages = mysqli_fetch_assoc($imgs);
+						$totalS = mysqli_num_rows($subcomments);
+						if ($totalS){
+							do{
+
+		            ?>
+	              	<div class="media-body">
+	                <h5 class="mt-0"><?php echo $linhaS['name'] ?></h5>
+	                <p>
+	              		<?php echo $linhaS['comment']; ?>
+	                </p>
+	                <p class="text-right lead text-muted"><?php echo $linhaS['date']?></p>
+
+	                <?php
+
+	                	} while($linhaC = mysqli_fetch_assoc($subcomments));
+						mysqli_free_result($subcomments);
+					}
+
+	                ?>
+	              		<form action="index.php#<?php echo $linhaC['id'];?>" method="post">
+		              		<input type="hidden" name="commentId" value="<?php echo $linhaC['id'];?>">
+		              		<input type="hidden" name="action" value="answer">
+		              		<button type="submit" class="btn btn-sm btn-dark">Responder</button>
+	              		</form>
 		            </div>
 		          </div>
 		        </div>
 
 		<?php
+			if(isset($_POST['action'])){
+				if($_POST['action'] == 'answer' and $_POST['commentId'] == $linhaC['id']){
+		?>
+			<div class="container mx-5">
+				<div class="row">
+					<div class="col-11 justify-content-center">
+						<div class="card my-4">
+				            <div class="card-body">
+				            	<form action="comment.php" method="post">
+				                	<div class="form-group">
+				                		<input type="hidden" name="action" value="subcomment">
+				                		<input type="hidden" name="commentId" value="<?php echo $linhaC['id'];?>">
+				                		<label class="lead">Nome:</label>
+				                		<br>
+				                		<input type="text" name="name">
+				                		<br>
+				                		<br>
+				                		<label class="lead">Comentário:</label>
+				                		<br>
+				                  		<textarea class="form-control" name="comment" rows="2"></textarea>
+				                	</div>
+				                	<div class="text-center">
+				                		<button type="submit" class="btn btn-md btn-success box_generic">Enviar</button>
+				                	</div>
+				        	    </form>
+				    	    </div>
+				    	</div>
+				    </div>
+		        </div>
+		    </div>
+
+		<?php			
+				}
+			}
+
 				} while($linhaC = mysqli_fetch_assoc($comments));
 				mysqli_free_result($comments);
 			}
@@ -500,70 +572,8 @@
 	<!-- ###################### FOOTER ######################## -->
 
 	<div class="bg-dark text-light justify-content-center text-center">
-		<div class="row">
-			<div class="my-5 col-sm-12 text-center">
-				<h2 class=" display-4 "> Onde estamos?</h2>
-				<p class="lead"> Endereço, contato e redes!</p>
-			</div>
-		</div>
-	
-
-		<div class="row justify-content-center">
-			<div class="col-sm-12 col-md-6 col-lg-6 text-light ">
-
-				<div class=" mx-auto mb-5 rounded" id="googleMap" style="width:80%;height:400px;"></div>
-
-			</div>
-
-			<div class="row col-6  mt-lg-5 mt-md-3 mt-sm-0 ">
-				
-				<div class="col-4 col-sm-4">
-					
-					<a class="text-light" href="http://facebook.com/EMakersUFLA">
-						
-						<i class="fa fa-facebook-square fa-5x mr-3 mr-sm-3 mr-md-3 mr-lg-3" aria-hidden="true"></i>
-					
-					</a>
-
-				</div>
-
-
-				<div class=" col-4 col-sm-4">
-					
-					<a class="text-light" href="http://facebook.com/EMakersUFLA">
-					
-						<i class="fa fa-instagram fa-5x mr-4" aria-hidden="true"></i>
-					
-					</a>
-
-				</div>
-
-				<div class="col-4 col-sm-4">
-					
-					<a class="text-light" href="http://facebook.com/EMakersUFLA">
-
-						<i class="fa fa-youtube-square fa-5x mr-5 mb-lg-5 mb-md-3 mb-sm-5" aria-hidden="true"></i>
-
-					</a>
-
-				</div>
-
-				<div class="col-12 col-sm-12 ml-3">
-					
-					<p class="ml-5 ml-lg-0 ml-md-0 ml-sm-0 mr-0 mr-sm-5 mr-md-5 mr-lg-5 mt-sm-0 mt-md-0 mt-lg-0 mt-4 mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-				</div>
-
-			</div>
-
-
-
-		</div>
+		
+		<h5>UniMais</h5>
 
 	</div>
 
