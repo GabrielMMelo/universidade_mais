@@ -85,7 +85,7 @@
 				</ul>
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<span><a href="#" class="nav-link btn text-light mr-5" data-toggle="modal" data-target="#modalTrain"> <i class="fa fa-search" style="font-size: 2rem"></i> </a></span>
+						<span><a href="#" class="nav-link btn text-light mr-5" data-toggle="modal" data-target="#modalSearch"> <i class="fa fa-search" style="font-size: 2rem"></i> </a></span>
 					</li>
 				</ul>
 				<!--
@@ -588,42 +588,42 @@
 
 	
 	<!-- Treinamentos -->
-	<div class="modal fade" id="modalTrain" role="dialog">
+	<div class="modal fade" id="modalSearch" role="dialog">
 		
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog modal-lg" role="document">
 
-			<div class="modal-content">
+			<div class=" modal-content bg-dark rounded">
 				
-				<div class="modal-header">
-					
-					<h5 class="modal-title"> Treinamentos</h5>
-
-					<button class="close" type="button" data-dismiss="modal">
+				<div class=" text-center">
+					<button class="close text-light mt-2 mr-3" type="button" data-dismiss="modal">
 						
 						<span>&times;</span>
 
 					</button>
+					<div class="mt-5">
+						<h5 class="display-2 my-5 text-light">PESQUISAR</h5>
+					</div>
+					
 
 				</div>
 
-				<div class="modal-body">
-					
-					<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
+				<div class="modal-body text-center">
 
+					<form action="">
+						<div class="form-group">
+		                    <div class="input-group">
+		                        
+			                        <input type="text" name="search" class="form-control">
+			                        <span class="input-group-btn">
+			                            <button class="btn btn-default" type="submit"><span class="fa fa-search"></span></button>
+			                        </span>
+		                    </div><!-- /input-group -->
+	                	</div>
+	                </form>
 				</div>				
 
-				<div class="modal-footer">
-					<button class="btn btn-danger" type="button" data-dismiss="modal">Fechar</button>
-
-
-				</div>
-
-			</div>
+			</div> 
 			
-
-
 		</div>
 
 	</div>
