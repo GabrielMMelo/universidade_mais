@@ -38,7 +38,8 @@
 				if ($mysqllink) {
 				$query = mysqli_query($mysqllink, "INSERT INTO comments (postId, name, comment) VALUES ('$postId', '$name','$comment');");
 					if($query) {
-						header('Location:index.php');
+						$location = 'Location:index.php#comments';
+						header($location);
 					}
 					else {
 						die("ERRO: ". mysqli_error($mysqllink));
@@ -58,14 +59,11 @@
 		else if (($_POST['action'] == 'subcomment')){
 			$flag = FALSE;
 			if (isset($_POST['comment'])) {
-				$comment = $_POST['comment'];
+				$comment = str_replace('\'', "\"", $_POST['comment']);
 			    if ($comment != "") {
 			    	$flag = TRUE;
 			    	if (isset($_POST['commentId'])) {
 						$commentId = $_POST['commentId'];
-					}
-					else{
-						header('Location:i.php');
 					}
 					if (isset($_POST['name'])) {
 						$name = $_POST['name'];
@@ -81,7 +79,8 @@
 				if ($mysqllink) {
 				$query = mysqli_query($mysqllink, "INSERT INTO subcomments (commentId, name, comment) VALUES ('$commentId', '$name','$comment');");
 					if($query) {
-						header('Location:index.php');
+						$location = 'Location:index.php#'. $commentId;
+						header($location);
 					}
 					else {
 						die("ERRO: ". mysqli_error($mysqllink));

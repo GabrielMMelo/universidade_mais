@@ -19,7 +19,7 @@
 
 		//include "comment.php";
 
-		$parametro = filter_input(INPUT_GET, "search");
+		$param = filter_input(INPUT_GET, "search");
 		$mysqllink = mysqli_connect("localhost", "root", "", "universidademais");
 		
 		if (mysqli_connect_errno()) {
@@ -30,15 +30,15 @@
 		mysqli_query($mysqllink, 'SET character_set_connection=utf8');
 		mysqli_query($mysqllink, 'SET character_set_client=utf8');
 		mysqli_query($mysqllink, 'SET character_set_results=utf8');
-		if ($parametro){
-			$dados = mysqli_query($mysqllink,"SELECT * FROM post where name like '%$parametro%' order by name desc");
+		if ($param){
+			$dados = mysqli_query($mysqllink,"SELECT * FROM post where name like '%$param%' order by name desc");
 		}
 
 		else{
 			$dados = mysqli_query($mysqllink,"SELECT * FROM post order by post_date desc");
 		}
 
-		$linha = mysqli_fetch_assoc($dados);
+		$line = mysqli_fetch_assoc($dados);
 		$total = mysqli_num_rows($dados);
 	?>
 
@@ -277,31 +277,31 @@
 					$c = 'comment'.$count;
 			?>
 					 <!-- Title -->
-          <h1 class="mt-4 text-center"><?php echo $linha['name']?></h1>
+          <h1 class="mt-4 text-center"><?php echo $line['name']?></h1>
 
           <!-- Author -->
           <p class="lead">
             por
-            <a href="#"><?php echo $linha['author']?></a>
+            <a href="#"><?php echo $line['author']?></a>
           </p>
 
           <hr>
 
           <!-- Date/Time -->
-          <p><i>Postado em <?php echo $linha['post_date'];
-          					$postId = $linha['id'];
+          <p><i>Postado em <?php echo $line['post_date'];
+          					$postId = $line['id'];
           				   ?></i></p>
 
           <hr>
 
           <!-- Preview Image -->
           <div class="text-center">
-          	<img class="img-fluid rounded" src="img/<?php echo $linha['img']?>" alt="">
+          	<img class="img-fluid rounded" src="img/<?php echo $line['img']?>" alt="">
 		  </div>          
           <hr>
 
           <!-- Post Content -->
-          <p class="lead"><?php echo $linha['content']?></p>
+          <p class="lead"><?php echo $line['content']?></p>
 
           <!--<blockquote class="blockquote">
             <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
@@ -311,11 +311,11 @@
           </blockquote>-->
 
           	<?php
-          	$aut = $linha['author'];
+          	$aut = $line['author'];
 			$author = mysqli_query($mysqllink,"SELECT * FROM authors where name = '$aut';");
 
-			$linhaA = mysqli_fetch_assoc($author);
-			//$linhaImages = mysqli_fetch_assoc($imgs);
+			$lineA = mysqli_fetch_assoc($author);
+			//$lineImages = mysqli_fetch_assoc($imgs);
 			$totalA = mysqli_num_rows($author);
 			if ($totalA){
 				do{
@@ -329,9 +329,9 @@
 
 					<div class="col-4 my-4 mx-5 text-center">
 
-						<h2 class="display-4"><?php echo $linhaA['name']?></h2>
+						<h2 class="display-4"><?php echo $lineA['name']?></h2>
 
-						<img class="img-fluid heavy_rounded mt-5" src="img/<?php echo $linhaA['img']?>" alt="<?php echo $linhaA['name']?>">
+						<img class="img-fluid heavy_rounded mt-5" src="img/<?php echo $lineA['img']?>" alt="<?php echo $lineA['name']?>">
 						
 
 					</div>
@@ -340,7 +340,7 @@
 
 						<p class="lead">
 							
-							<?php echo $linhaA['bio']; ?>
+							<?php echo $lineA['bio']; ?>
 
 						</p>
 						
@@ -348,7 +348,7 @@
 
 							<div class="col-4 col-sm-4">
 								
-								<a class="text-dark" href="<?php echo $linhaA['linkedin']?>">
+								<a class="text-dark" href="<?php echo $lineA['linkedin']?>">
 									
 									<i class="fa fa-linkedin-square fa-5x mr-3 mr-sm-3 mr-md-3 mr-lg-3" aria-hidden="true"></i>
 								
@@ -359,7 +359,7 @@
 
 							<div class=" col-4 col-sm-4">
 								
-								<a class="text-dark" href="<?php echo $linhaA['instagram']?>">
+								<a class="text-dark" href="<?php echo $lineA['instagram']?>">
 								
 									<i class="fa fa-instagram fa-5x mr-4" aria-hidden="true"></i>
 								
@@ -369,7 +369,7 @@
 
 							<div class="col-4 col-sm-4">
 								
-								<a class="text-dark" href="<?php echo $linhaA['twitter']?>">
+								<a class="text-dark" href="<?php echo $lineA['twitter']?>">
 
 									<i class="fa fa-twitter-square fa-5x mr-5 mb-lg-5 mb-md-3 mb-sm-5" aria-hidden="true"></i>
 
@@ -390,7 +390,7 @@
           </div>
 
           	<?php 
-          		} while($linhaC = mysqli_fetch_assoc($author));
+          		} while($lineC = mysqli_fetch_assoc($author));
 				mysqli_free_result($author);
 			}
 			?>
@@ -398,12 +398,12 @@
           <hr>
 
 
-<!--       ############## COMMENTS ############### 		-->
+<!--       ############## COMMENT FIELD ############### 		-->
         <div class="col-12">
           	
           
 	          <!-- Comments Form -->
-	          <div class="card my-4">
+	          <div class="card my-4" id="comments">
 	            <h5 class="card-header bg-dark text-light">Deixe um comentário:</h5>
 	            <div class="card-body">
 	            	<form action="comment.php" method="post">
@@ -430,15 +430,15 @@
 		<?php
 			$comments = mysqli_query($mysqllink,"SELECT * FROM comments where postId = '$postId' order by date desc");
 
-			$linhaC = mysqli_fetch_assoc($comments);
-			//$linhaImages = mysqli_fetch_assoc($imgs);
+			$lineC = mysqli_fetch_assoc($comments);
+			//$lineImages = mysqli_fetch_assoc($imgs);
 			$totalC = mysqli_num_rows($comments);
 			if ($totalC){
 				do{
 
 		?>
 
-
+		<!-- ###################### SHOW COMMENTS ######################## -->
 	    	<div class="col-12">
           <!-- Single Comment -->
 		          <div class="media mb-4">
@@ -469,54 +469,60 @@
 		            }
 
 		            ?>
-		            <div class="media-body" id="<?php echo $linhaC['id'];?>">
-		              <h5 class="mt-0"><?php echo $linhaC['name'] ?></h5>
-		              <p>
-		              	<?php echo $linhaC['comment'];?>
-		              </p>
+		            <div class="media-body" id="<?php echo $lineC['id'];?>">
+			            <h5 class="mt-0"><?php echo $lineC['name'] ?></h5>
+			            <p>
+			            	<?php echo $lineC['comment'];?>
+			            </p>
+    	                <p class="text-right lead text-muted"><?php echo $lineC['date']?></p>
 
-		              <p class="text-right lead text-muted"><?php echo $linhaC['date']?></p>
-
-		              
+		    <!-- ###################### SUBCOMMENTS ######################## -->   
 		            <?php
 
-		            	$commentId = $linhaC['id'];
+		            	$commentId = $lineC['id'];
+		            	// Select subcomments to same $commentId
+			            $subcomments = mysqli_query($mysqllink,"SELECT * FROM subcomments where commentId = '$commentId' order by date asc");
 
-			            $subcomments = mysqli_query($mysqllink,"SELECT * FROM subcomments where commentId = '$commentId' order by date desc");
-
-	  					$linhaS = mysqli_fetch_assoc($subcomments);
-						//$linhaImages = mysqli_fetch_assoc($imgs);
+	  					$lineS = mysqli_fetch_assoc($subcomments);
+						//$lineImages = mysqli_fetch_assoc($imgs);
 						$totalS = mysqli_num_rows($subcomments);
 						if ($totalS){
 							do{
 
 		            ?>
-	              	<div class="media-body">
-	                <h5 class="mt-0"><?php echo $linhaS['name'] ?></h5>
-	                <p>
-	              		<?php echo $linhaS['comment']; ?>
-	                </p>
-	                <p class="text-right lead text-muted"><?php echo $linhaS['date']?></p>
 
+		    <!-- ###################### SHOW SUBCOMMENTS ######################## -->   
+	              	<div class="media-body">
+	              		<div class="bg-light rounded">
+	              			<div class="mx-3">
+				                <h6 class="mt-3"><?php echo $lineS['name'] ?></h6>
+				                <p>
+				              		<?php echo $lineS['comment']; ?>
+				                </p>
+				                <p class="text-right lead text-muted"><?php echo $lineS['date']?></p>
+			                </div>
+		            	</div>
+	            	</div>
 	                <?php
 
-	                	} while($linhaC = mysqli_fetch_assoc($subcomments));
+	                	} while($lineS = mysqli_fetch_assoc($subcomments));
 						mysqli_free_result($subcomments);
 					}
 
 	                ?>
-	              		<form action="index.php#<?php echo $linhaC['id'];?>" method="post">
-		              		<input type="hidden" name="commentId" value="<?php echo $linhaC['id'];?>">
+	              		<form action="index.php#<?php echo $lineC['id'];?>" method="post">
+		              		<input type="hidden" name="commentId" value="<?php echo $lineC['id'];?>">
 		              		<input type="hidden" name="action" value="answer">
 		              		<button type="submit" class="btn btn-sm btn-dark">Responder</button>
 	              		</form>
-		            </div>
 		          </div>
 		        </div>
+		    </div>
 
 		<?php
+			// If "Responder" button is pressed -> open the answer field
 			if(isset($_POST['action'])){
-				if($_POST['action'] == 'answer' and $_POST['commentId'] == $linhaC['id']){
+				if($_POST['action'] == 'answer' and $_POST['commentId'] == $lineC['id']) {
 		?>
 			<div class="container mx-5">
 				<div class="row">
@@ -526,7 +532,7 @@
 				            	<form action="comment.php" method="post">
 				                	<div class="form-group">
 				                		<input type="hidden" name="action" value="subcomment">
-				                		<input type="hidden" name="commentId" value="<?php echo $linhaC['id'];?>">
+				                		<input type="hidden" name="commentId" value="<?php echo $lineC['id'];?>">
 				                		<label class="lead">Nome:</label>
 				                		<br>
 				                		<input type="text" name="name">
@@ -550,10 +556,10 @@
 				}
 			}
 
-				} while($linhaC = mysqli_fetch_assoc($comments));
+				} while($lineC = mysqli_fetch_assoc($comments));
 				mysqli_free_result($comments);
 			}
-		} while($linha = mysqli_fetch_assoc($dados));
+		} while($line = mysqli_fetch_assoc($dados));
 				mysqli_free_result($dados);}
 
 				mysqli_close($mysqllink);
@@ -580,213 +586,7 @@
 
 	<!-- ############## MODALS ################# -->
 
-	<!-- ANDROID -->
-	<div class="modal fade" id="modalAndroid" role="dialog">
-		
-		<div class="modal-dialog" role="document">
-
-			<div class="modal-content">
-				
-				<div class="modal-header">
-					
-					<h5 class="modal-title"> Soluções mobile</h5>
-
-					<button class="close" type="button" data-dismiss="modal">
-						
-						<span>&times;</span>
-
-					</button>
-
-				</div>
-
-				<div class="modal-body">
-					
-					<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-
-				</div>				
-
-				<div class="modal-footer">
-					<button class="btn btn-danger" type="button" data-dismiss="modal">Fechar</button>
-
-
-				</div>
-
-			</div>
-			
-
-
-		</div>
-
-	</div>
-
-
-	<!-- IoT -->
-	<div class="modal fade" id="modalIoT" role="dialog">
-		
-		<div class="modal-dialog" role="document">
-
-			<div class="modal-content">
-				
-				<div class="modal-header">
-					
-					<h5 class="modal-title"> Soluções em IoT com microcomputadores e microcontroladores</h5>
-
-					<button class="close" type="button" data-dismiss="modal">
-						
-						<span>&times;</span>
-
-					</button>
-
-				</div>
-
-				<div class="modal-body">
-					
-					<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-
-				</div>				
-
-				<div class="modal-footer">
-					<button class="btn btn-danger" type="button" data-dismiss="modal">Fechar</button>
-
-
-				</div>
-
-			</div>
-			
-
-
-		</div>
-
-	</div>
-
-	<!-- IC -->
-	<div class="modal fade" id="modalIC" role="dialog">
-		
-		<div class="modal-dialog" role="document">
-
-			<div class="modal-content">
-				
-				<div class="modal-header">
-					
-					<h5 class="modal-title"> Soluções em inteligência computacional</h5>
-
-					<button class="close" type="button" data-dismiss="modal">
-						
-						<span>&times;</span>
-
-					</button>
-
-				</div>
-
-				<div class="modal-body">
-					
-					<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-
-				</div>				
-
-				<div class="modal-footer">
-					<button class="btn btn-danger" type="button" data-dismiss="modal">Fechar</button>
-
-
-				</div>
-
-			</div>
-			
-
-
-		</div>
-
-	</div>
-
-
-	<!-- Ferramentas -->
-	<div class="modal fade" id="modalTools" role="dialog">
-		
-		<div class="modal-dialog" role="document">
-
-			<div class="modal-content">
-				
-				<div class="modal-header">
-					
-					<h5 class="modal-title"> Consultoria em integração de ferramentas corporativas</h5>
-
-					<button class="close" type="button" data-dismiss="modal">
-						
-						<span>&times;</span>
-
-					</button>
-
-				</div>
-
-				<div class="modal-body">
-					
-					<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-
-				</div>				
-
-				<div class="modal-footer">
-					<button class="btn btn-danger" type="button" data-dismiss="modal">Fechar</button>
-
-
-				</div>
-
-			</div>
-			
-
-
-		</div>
-
-	</div>
-
-	<!-- Plataformas -->
-	<div class="modal fade" id="modalPlat" role="dialog">
-		
-		<div class="modal-dialog" role="document">
-
-			<div class="modal-content">
-				
-				<div class="modal-header">
-					
-					<h5 class="modal-title"> Desenvolvimento de plataformas de aprendizagem</h5>
-
-					<button class="close" type="button" data-dismiss="modal">
-						
-						<span>&times;</span>
-
-					</button>
-
-				</div>
-
-				<div class="modal-body">
-					
-					<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-
-				</div>				
-
-				<div class="modal-footer">
-					<button class="btn btn-danger" type="button" data-dismiss="modal">Fechar</button>
-
-
-				</div>
-
-			</div>
-			
-
-
-		</div>
-
-	</div>
-
+	
 	<!-- Treinamentos -->
 	<div class="modal fade" id="modalTrain" role="dialog">
 		
@@ -829,8 +629,6 @@
 	</div>
 	
 <script src="js/style.js"></script>
-<script src="js/maps.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?callback=myMap"></script>
 <script src="node_modules/jquery/dist/jquery.js"></script>
 <script src="node_modules/popper.js/dist/umd/popper.js"></script>
 <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
